@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MapReduce avec Akka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type="file"], input[type="text"] {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            color: green;
+            margin: 10px 0;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9f7ef;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TP3 - Akka</h1>
+
+    <!-- Section d'initialisation des acteurs -->
+    <h2>Initialisation des acteurs Akka</h2>
+    <form action="/initialize" method="post">
+        <button type="submit">Initialiser les acteurs</button>
+    </form>
+
+    <!-- Section de téléversement de fichier -->
+    <h2>Fichier à analyser</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <br>
+        <button type="submit">Analyser le fichier</button>
+    </form>
+
+    <!-- Message de confirmation -->
+    <div th:if="${message}" class="message" th:text="${message}"></div>
+
+    <!-- Section de recherche de mot -->
+    <h2>Rechercher un mot</h2>
+    <form action="/search" method="post">
+        <input type="text" name="word" placeholder="Entrez un mot" required>
+        <br>
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <!-- Affichage du résultat de la recherche -->
+    <div th:if="${word}" class="result">
+        <p>Le mot "<strong th:text="${word}"></strong>" apparaît <strong th:text="${count}"></strong> fois.</p>
+    </div>
+</body>
+</html>
